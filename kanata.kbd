@@ -1,0 +1,44 @@
+;; kanata configuration
+;; https://github.com/jtroo/kanata/blob/main/docs/config.adoc
+(defcfg
+  process-unmapped-keys yes
+  linux-dev-names-include (
+    "AT Translated Set 2 keyboard"
+    "input-remapper AT Translated Set 2 keyboard forwarded"
+  )
+)
+(defsrc
+  a s d f j k l ;
+  ;;ralt q
+)
+(defvar
+  tap-time 150
+  hold-time 300
+  tap-dance-time 300
+)
+
+(defalias
+;;  escctrl (tap-hold 100 100 esc lctl)
+  a (tap-hold $tap-time $hold-time a ralt)
+  s (tap-dance-eager $tap-dance-time ((tap-hold $tap-time $hold-time s lmet) s))
+  d (tap-dance-eager $tap-dance-time ((tap-hold $tap-time $hold-time d lsft) d))
+  f (tap-dance-eager $tap-dance-time ((tap-hold $tap-time $hold-time f lctl) f))
+  j (tap-hold $tap-time $hold-time j rctl)
+  k (tap-hold $tap-time $hold-time k rsft)
+  l (tap-hold $tap-time $hold-time l lmet)
+  ; (tap-hold $tap-time $hold-time ; ralt)
+  
+  ;;ralt (chord example ralt)
+  ;;q (chord example q)
+)
+
+;;(defchords example 65535
+;;  (ralt  ) ralt
+;;  (     q) q
+;;  (ralt q) (multi C-bspc C-bspc)
+;;)
+
+
+(deflayer base
+  @a @s @d @f @j @k @l @; ;;@ralt @q
+)
